@@ -12,7 +12,7 @@ require 'plist'
 require 'uuidtools'
 
 class AppleProfile
-  def general_payload(options)
+  def self.general_payload(options)
     payload = Hash.new
     payload['PayloadVersion'] = 1
     payload['PayloadUUID'] = UUIDTools::UUID.random_create().to_s
@@ -52,7 +52,7 @@ class AppleProfile
     payload
   end
   
-  def configuration_payload(request, options, content)
+  def self.configuration_payload(request, options, content)
     payload = general_payload(options)
     
     # General settings
@@ -232,7 +232,7 @@ class AppleProfile
     payload
   end
   
-  def wifi_payload(options)
+  def self.wifi_payload(options)
     payload = general_payload(options)
     payload['PayloadType'] = "com.apple.wifi.managed"
     
