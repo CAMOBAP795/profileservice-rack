@@ -9,7 +9,7 @@ require 'rubygems'
 require 'rack'
 require 'openssl'
 
-require 'apple-profile'
+require './apple-profile'
 
 class ProfileService
   def initialize
@@ -26,10 +26,10 @@ class ProfileService
       "encryption" => "WPA2"
     }
     wifi_profile = AppleProfile::wifi_payload(wifi_options)
-    @profile = AppleProfile::configuration_payload(nil, profile_options, Array.new(wifi_profile))
+    @profile = AppleProfile::configuration_payload(nil, profile_options, Array.new(1) {wifi_profile})
   end
   def call(env)
-    [200, {"Content-Type" => "application/x-apple-aspen-config"}, Plist::Emit.dump(profile)]
+    [200, {"Content-Type" => "application/x-apple-aspen-config"}, Plist::Emit.dump(@profile)]
   end
 end
 
