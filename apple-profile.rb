@@ -66,7 +66,7 @@ class AppleProfile
     # Include payload content if provided.
     if (content && options['Encrypted'])
       payload['EncryptedPayloadContent'] = StringIO.new(content)
-      elsif (content && content.empty?)
+    elsif (content && !content.empty?)
       payload['PayloadContent'] = content
     end
     
